@@ -24,4 +24,4 @@ jobs:
       - name: 🚀 Deploy to Firebase Hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: firebase deploy --project https://og-yt-ads.web.app/ --only hosting
+        run: firebase deploy --project og-yt-ads --only hosting
