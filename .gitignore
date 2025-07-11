@@ -1,28 +1,27 @@
-# Firebase build and deployment files
-/firebase-debug.log
-/firebase-debug.*.log
-.firebaserc
+name: Deploy to Firebase Hosting
 
-# Firebase Hosting
-/firebase.json
-*.cache
-hosting/.cache
+on:
+  push:
+    branches:
+      - main  # or use 'master' or any branch you want to trigger deploy from
 
-# Firebase Functions
-/functions/node_modules/
-/functions/.env
-/functions/package-lock.json
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
 
-# Firebase Emulators
-/firebase-*.zip
-/.firebase/
-/emulator-ui/
+    steps:
+      - name: 🔄 Checkout repository
+        uses: actions/checkout@v3
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+      - name: 🔥 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-# Environment files (local configs)
-/.env.*
+      - name: 📦 Install Firebase CLI
+        run: npm install -g firebase-tools
+
+     - name: 🚀 Deploy to Firebase Hosting
+  env:
+    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  run: firebase deploy --project og-yt-ads --only hosting
